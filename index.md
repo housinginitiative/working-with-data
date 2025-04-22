@@ -11,4 +11,4 @@ There are four pages on this site:
 - [Guidelines for writing code](code-guidelines.qmd)
 - [A library of external resources](resources.qmd)
 
-The website was created and is maintained by Chi-Hyun Kim. For any questions or suggestions, please don't hesitate to contact [him](mailto:chhykim@design.upenn.edu).
+The website was created and is maintained by Chi-Hyun Kim. For any questions or suggestions, please don't hesitate to contact [him](mailto:chkim@design.upenn.edu).
