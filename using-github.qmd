@@ -1,0 +1,283 @@
+---
+title: "Using Github"
+format: html
+custom-callout:    
+  try:
+    icon-symbol: "📌"
+    title: " Try it yourself"
+    color: "#1f2859ff"
+filters:
+  - custom-callout
+---
+
+This page describes why we use Github to organize our projects at HIP, and guides you through the workflow so you can feel comfortable using version control tools in your work.
+
+::: try
+This guide is intended to be hands-on. When you see this callout box, please try the task it suggests so you can follow along with the text.
+:::
+
+But first, if you haven't yet set up your Github account and installed Github Desktop, follow the steps [here](getting-set-up.qmd#github) before continuing.
+
+# Why
+
+Github helps us do our work collaboratively in a well-organized way. 
+
+You've probably had the experience of a team project where you passed files back and forth between people, accumulating many different versions along the way. It was probably confusing and ineffective. But there are much better ways to manage collaboration and keep track of changes in projects. This is where Github steps in. 
+
+[Github](https://github.com/) is an easy-to-use interface for a version control system, which helps you structure your project (and the  changes to your project) in a sensible, controlled way that works well whether you're working by yourself or a dozen other people.
+
+Of course, using a particular system doesn't guarantee that how you use it is effective, so it's also important to specify the workflow we use with Github. The workflow described in this guide is a widely-used approach which enables clearly structured project development and provides regular opportunities for code review and documentation.
+
+::: {.callout-note}
+Github is a particular platform for [Git](https://en.wikipedia.org/wiki/Git), which is the actual version control system under the hood. There are other services (e.g., GitLab), but Github is the most widely used platform and offers a myriad of other services that build on top of version control. This means that Github and Git are not synonymous, but here we use the term 'Github' since we're using that specific platform.
+:::
+
+# Where
+
+HIP's home on Github is at the [housinginitiative](https://github.com/housinginitiative) organization. You should already have joined the organization as a member, which should let you create and join repositories hosted by the HIP organization. You should also be able to see all our [existing repositories](https://github.com/orgs/housinginitiative/repositories), both public and private.
+
+::: try
+Check out the different tabs on the HIP organization page.
+:::
+
+# What
+
+Before we dive in to the how-to, a quick round of definitions. If you're not familiar with version control systems yet, this may sound a bit abstract, but don't worry—we'll be seeing these definitions in action soon.
+
+## Repos
+
+A repository (*repo*, for short) is the main unit of organization for version control. You can think of a repo as all the code needed for a particular project—it can be as small or large as needed, but each project should get its own repo. A repo will have its own page on Github, which will show you the directories and files that are part of the repo, a readme telling you what the repo is about, a commit history page showing you what the repo looked like in the past, and links to associated project management tools like the issues page.
+
+::: try
+Check out what a repo's page looks like; for example, the repo for [this website](https://github.com/housinginitiative/working-with-data).  
+:::
+
+It's important to know, though, that the repo can live in multiple copies, or clones. The repo which is on the Github website (called the `remote` repo) is the reference version for practical purposes, but the version you clone to your own computer (see below) is an independent copy. This is why it's important to distinguish between the version of the repo that lives on Github versus the version that lives locally on your machine: changing one will not affect the other, unless you tell Github to make the update (more on this below as well). 
+
+## Commits
+
+A commit is a *snapshot in time* of a repo. It tells you exactly what the repo looked like when the commit was made. You could think of a repo as basically a collection of commits, leading from one to the other. This means it's easy to revert from one state to another, almost like a backup system. Commits are not created automatically, though—you create them explicitly when there is a meaningful snapshot to preserve.
+
+## Branches
+
+The simplest kind of repo is like the trunk of a tree, with one commit linked to the next one in an unbranching chain. But Git is designed to work well with a *branched* structure, where different lines of commits can branch out from the main trunk (which we call `main`). Think of branches as separate lines of development, which allows work on different parts of the repo to happen in parallel. When the purpose of the branch is completed, they can be folded in to `main`, bringing all of its changes with it. This is an important aspect of how we use Github, and we'll work more with branches below.
+
+# How
+
+In this section, we'll practice a small-but-complete example of a standard version control workflow, demonstrating tasks that you will do routinely when you're developing code. We'll work with the Github website and the Github Desktop application to do this. Read each section first, then follow the 'Try it yourself' step at the end of the section.
+
+## Create a repository
+
+The very first order of business when setting up a new project repo is to discuss with your colleagues how your project should be structured. This might change as the project progresses, but everyone working on the same project should be on the same page before project infrastructure is created. 
+
+Once that is done, [a repository should be created](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) if it hasn't been already. Head to our Github org's [repositories page](https://github.com/orgs/housinginitiative/repositories) and click the green 'New Repository' button. Note that the 'Owner' field is already set to the housinginitiative organization.
+
+::: {.callout-note}
+Any repo created for HIP work should live in the housinginitiative organization, rather than belonging to an individual's account. 
+:::
+
+Next to that field is the 'Repository name' field. The convention here is to use all lowercase with hyphens as separators. When you start a project, a name should be chosen that will be used on all platforms referring to that project, including on Github; this should be one of the things that the project team should have decided on already.
+
+A repo can be public or private—private repos are only visible to members of the housinginitiative organization plus any external collaborators you add to that project; for everyone else, the repo page will return a 404 error. A project repo should be private (though your team may make it public later).
+
+You should always enable the 'Add a README file' option, and add a .gitignore file for R. The README file creates a mini 'front page' for your repo which should describe what the repo is about. The .gitignore file is there so files that are specific to your system and not relevant for others' machines are not going to clutter up the repo.
+
+::: {.callout-tip}
+You can automatically apply this basic setup by simply using the template repo for our organization: at the top of the 'Create a new repository' page, select the drop-down menu under 'Repository template' and select `housinginitiative/hip-template-repo`, and just fill in your repo's name. I recommend you use the template.
+:::
+
+Once you create a repository, invite your team by clicking on 'Settings' near the top of the repo page and selecting 'Collaborators and teams' on the left-hand menu of the settings page. Currently, everyone part of the housinginitiative organization will be able to read the repo, but not write to it. Click 'Add people' and select from the menu. At least one other person from HIP should have the 'Admin' role; otherwise 'Maintain' or 'Write' is fine.
+
+::: {.callout-caution}
+If you add people by their username, make sure that it's the correct username! Copy-paste directly from their user profile page.
+:::
+
+The next order of business is to edit the project's main README to include information about the project and include a link to the project's Box directory. If you used the project template, there should placeholders already.
+
+::: {.callout-tip}
+If you used the template repo, the .gitignore file includes an entry for `.DS_Store`, a ubiquitous user configuration file in Mac OS. If you did not use the template repo, you should edit the .gitignore file to include it—otherwise it will cause issues.
+
+Mac users reading this guide are also recommended to [edit their *global* .gitignore file](https://docs.github.com/en/get-started/git-basics/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer) on their machine so this file is ignored regardless of whether the repo's .gitignore specifies it.
+:::
+
+::: try
+Now try creating your own test repo for this guide! But create this repo under your own account, not the HIP organization.
+:::
+
+## Clone the repository
+
+Now the repository has been created, or you have been added to one that already exists. But how would you access the files on your own computer? You could download files individually, but those files would be regular files and not tracked under version control. What you want to do is to create a linked copy, or a *clone*, of the repo on your local machine. 
+
+There are [several ways](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) to do this, but the simplest is just to click the green 'Code' button from the repo's Github page, then select 'Open with Github Desktop'.
+
+![](https://docs.github.com/assets/cb-44807/mw-1440/images/help/repository/open-with-desktop.webp){width="40%"}
+
+That should open up Github Desktop—in the dialog window, select where on your computer the repo will be cloned to, then click 'Clone'.
+
+::: {.callout-tip}
+I recommend creating a directory on your computer where you will keep all your cloned repos, for example `Documents/Projects`
+:::
+
+In the Github Desktop window, you will see the current repo's name in the upper-left corner. Left-clicking on that box will show you the list of all the repos on your computer. Right-clicking on that box will show you options to open the repo in your Finder/File Explorer, or to open the repo's Github page. (These links are also in the main part of the Github Desktop window.)
+
+Note that the repo directory on your machine is a regular directory, like anything else on your computer—you can open files, add or delete files, edit files, or add subdirectories. *However*, this directory is also linked to Git, the version control system. Any changes you make to your directory will show up on the Github Desktop window for that repo, tracking all the changes you made. That also means that Git can change that directory when you perform Git actions like pulling or changing branches (see below).
+
+::: try
+Clone your practice repo that you created above, and open the repo directory in your file browser.
+:::
+
+## Create a branch
+
+As we saw above, [branches](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches) are a way to keep lines of development well organized. If you have multiple people working on a repo, it's important to organize that work to prevent people from stepping on each other's toes.
+
+Branches should be viewed as more-or-less self-contained mini-projects. A branch should generally address one issue (or a few small related issues), and have only one person working on the branch at a time. This way, each person working on the project has their own 'box' and it is easier to keep track of who is doing what.
+
+Branches can be created directly, by clicking on the 'Current Branch' tab at the top of the Github Desktop window, then selecting the 'New Branch' button. Give the branch a short but descriptive name for the task you want to get done on this branch, again using nothing but lowercase letters and hyphens. Once you create the branch, you should see a new option pop up on the third box at the top of the Github Desktop window: 'Publish branch'. Click on this option, and Github Desktop will publish the branch to the `remote` repo on Github. (Remember, `remote` is the version of the repo that lives on Github, i.e., the cloud. Changes you make to your local repo won't be propagated to `remote` unless you explicitly tell Git to do so.)
+
+We can also approach this from the other way around. Instead of creating a branch and naming it after a task, we can first define the task then create a branch to address it. Github offers an excellent interface to do this via the [Issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) page, which you can access via your repo's Github page, among the options on the top. On that page, you can add issues, describing what the issue is about and what needs to be done to complete it. Once you create the issue, you will see on the right side of the issue's page an option to [create a branch directly](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-a-branch-for-an-issue) from the issue page. This is a great way to define the purpose of your branch before you create it.
+
+![](https://docs.github.com/assets/cb-28712/mw-1440/images/help/issues/create-a-branch.webp){width="40%"}
+
+::: {.callout-caution}
+Always be aware of which branch you're in. Moving between branches will change the files in your repo directory. Always save your work before changing branches!
+:::
+
+::: try
+Go to your project's Github page, create an issue, and create a branch from the issue.
+:::
+
+## Pull in changes from `remote`
+
+Before you start on a day's work, it's a good idea to make sure your local repo is in sync with the remote repo on Github. If you are the only person working on a branch (which should usually be the case), there should not be changes to your branch on `remote`, but if you are accessing the repo from another computer or changes have accumulated on `main`, you will need to update the state of your local repo.
+
+You can do this easily from Github Desktop. First, make sure you are in the branch you want. Then, click the 'Fetch origin' button at the top of the Github Desktop window to see if the `remote` repo has changed (yes, you need to ask directly whether changes have been made to `remote`; they will not be automatically fetched). If the branch has changed on `remote`, Github Desktop will show you the 'Pull origin' button: selecting this button will update your local repo directory with the changes. (For our purposes, `origin` is just another name for `remote`.)
+
+Keep in mind that 'Pull origin' only updates the branch you are in currently. Changes *between* branches will not be synced to each other unless you *merge* in the changes. Usually, branches will be short-lived and changes will not accumulate too much on other branches. But if there have been changes in `main` while you're working on your branch, be sure to merge in `main` to your own branch (instructions [here](https://docs.github.com/en/desktop/working-with-your-remote-repository-on-github-or-github-enterprise/syncing-your-branch-in-github-desktop)).
+
+::: {.callout-important}
+But never merge in your branch directly *to* `main`! If you want to update `main`, you should always use pull requests to do so (see below).
+:::
+
+::: try
+Fetch and pull from origin. This should make the branch you just made on Github available on your local machine. Switch to that branch.
+:::
+
+## Make changes
+
+This is where you will spend the most of your time: developing your code. 
+
+As you do so, keep these things in mind:
+
+1. Keep your environment clean (see [here](code-guidelines.qmd#dirty-environments) for more). When someone else on your team pulls in your changes, they should be able to run your code out of the box.
+2. Github is NOT appropriate for storing any private data: such data should only be stored on Box. Don't include any private information in your code either (e.g., someone's name or address).
+3. Version control is a tool for keeping track of code. Small images or HTML outputs are fine to include, but don't store large binary files (like Excel files) in your repo.
+
+::: try
+Now that the preparation is done, let's make some changes! Create a new file, and edit the README. Remember, your repo is just a directory with some special powers—you can find and edit your files like normal.
+:::
+
+## Commit (and push)
+
+We saw above that commits are like snapshots that make up the content of the repo. But changes that you save to your machine's disk are *not* committed. They're just changes. To make a commit out of your changes, you need to tell Git to do so explicitly.
+
+This is easy using Github Desktop: on the left-hand side of the window, you'll see a list of files which have been changed. Depending on how they were changed, you'll see different icons for deleted, added, or edited files. (If you don't see your changes, make sure your changes are saved to disk.)
+
+![](https://docs.github.com/assets/cb-16555/mw-1440/images/help/desktop/commit-all.webp){width="40%"}
+
+You can click on the different files to see the highlighted *diffs*: the differences between the previous commit and your current changes.
+
+Before proceeding, make sure you are in the branch you are working in. If not, click the branch tab at the top of the Github Desktop window and select the branch you want to move to. When Github Desktop asks you if you want to bring your changes along, say 'Yes'.
+
+To create a new commit for these changes, write a short message in the box that appears below the list of changed files. This is your commit message. 
+
+![](https://docs.github.com/assets/cb-49326/mw-1440/images/help/desktop/create-commit-details.webp){width="30%"}
+
+Commit messages are what you'll read when you (or anyone else) browse through your repo, so it's important that they are meaningful and readable. The convention here is to use present-tense verbs to describe your changes (for example, "Include Box link in README"). There is also a larger 'Description' box, where you can write a longer description if you want. This is optional, but the commit message is required. Once you're happy with the commit message, click the blue 'Commit to [branchname]' button to create the commit.
+
+::: {.callout-tip}
+Without commit messages, it would be nearly impossible to understand how a repo evolved. Because of this, commit messages appear everywhere on Github's UI. Good commit messages are visible marks of professionalism: here are some [helpful tips](https://cbea.ms/git-commit/).
+:::
+
+This is *how* you create a commit, but *when* you commit is also important. Commits should be meaningful in themselves—you don't want to commit every 5 minutes and clutter up your repo's history, but you also don't want commits to be a smörgåsbord of different types of changes. The point above about commit messages is helpful here, too: you should commit when your changes add up to a good commit message. Generally, one to four commits a day might be reasonable.
+
+::: {.callout-tip}
+Sometimes you might get carried away and make a number of changes that should belong to separate commits. In that case, you can select which changes you want to be part of the first commit, and commit the rest separately. 
+
+In Github Desktop's 'Changed Files' window, check and uncheck which files you want to be part of the commit. (Unchecked changes are still saved and are available for future commits, unless you discard them.)
+:::
+
+Once you've committed, it's time to *push* your commit to Github—unless you do this explicitly, your changes will stay isolated on your machine. Github Desktop will helpfully surface this action for you at the top of the window.
+
+::: try
+Create one commit for the addition of the new file into your repo, and another for the edits to the README file. Then push.
+:::
+
+## Submit a pull request
+
+Once you're done with the task you created your current branch for, it's time to incorporate your new commits to `main`.
+
+You do this via pull requests (or *PR*s). PRs are a method to make your work available for inspection and comment before they are formally brought into `main`. Think of `main` as the 'official record', and PRs as draft reviews. A PR will include all the commits you've made so far in the branch, including all the diffs to changed files. A reviewer will be able to view the diffs and comment on them if desired. If you've 'suggested edits' or commented on a Google doc, this is the same principle, except that in this case the changes (your working branch) and the thing being changed (`main`) are kept separated until the PR is approved.
+
+Who is the reviewer? This will depend on the project. Generally, you should have at least one colleague who can and should review your code. Sometimes, you will be the only person working on a repo, in which case you should review your own code; though this is not ideal, the mechanism of the PR still enforces the concept of review and documentation, which is good.
+
+::: {.callout-note}
+You might be wondering why it's called a *pull* request when you are requesting to *push* into `main`. This is because `main` is the permanent branch and so we take its perspective—from `main`'s perspective, the changes are being *pulled* into it.
+:::
+
+Creating a pull request is also easy from Github Desktop: when you have any commits in your branch, a prominent blue 'Create Pull Request' button appears on the Github Desktop window. Clicking this button opens a webpage where you can write a description and officially submit the pull request. The description here should concisely describe what your changes do, which gives your reviewer (or future you) the context needed to properly interpret your changes. This could be as simple as: 'Completes issue #9', or a longer statement if your task was complex or if you are uncertain whether your PR fully addresses the issue.
+
+::: {.callout-tip}
+In the PR description field, using the hash sign `#` before a number will create a link to the issue page with that number.
+:::
+
+::: try
+Create a PR for your commits.
+:::
+
+## Review and resolve the pull request
+
+Once the PR is created, the reviewer (which could be you) should view the changes proposed in the PR and ask for any clarifications or changes, if necessary. To view PRs, click on the 'Pull requests' button near the top of the repo's Github page. From there, view the PR description and click on the 'Files changed' tab to view the list of diffs. Additions will be highlighted in green, deletions in red. The list of files changed will be displayed to the pane on the left. 
+
+If you have a question or suggestion for the PR submitter, hover over the relevant line of code in the diffs to add a comment. Once you're done with the comments, click the green 'Start a review' button.
+
+![](https://docs.github.com/assets/cb-44227/mw-1440/images/help/commits/hover-comment-icon.webp){width="40%"}
+
+You can also add general comments as a reply to the overall PR description.
+
+Once you're done with the review, let the submitter know so they can respond. The submitter can create new commits on the same branch the PR is from, and that will update the PR as well. The reviewer will see a 'Refresh' button if this happens and they haven't refreshed the PR page yet. The cycle of comments and changes can continue until the PR is ready for approval. Once the reviewer approves the PR, the committed changes are merged into `main`. 
+
+::: {.callout-caution}
+One potential complication: 95% of the time, if work has been well organized into branches, the merge should go smoothly. However, if the same file was changed in both of the branches being merged, a *merge conflict* may occur. In this case, the conflict must be manually resolved: the instructions are documented [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github). If there is a merge conflict, everyone should be on the same page about how it should be resolved.
+:::
+
+::: try
+Review your own PR: look at the diffs, try out the comment function, then approve the PR.
+:::
+
+## Finish up and continue the cycle
+
+Once the PR has been approved, the person who created the branch should delete it from both their local repo and from `remote`. This will keep the list of branches tidy. The associated issue should also be [closed](https://docs.github.com/en/issues/tracking-your-work-with-issues/administering-issues/closing-an-issue).
+
+At this point, the project documentation (e.g., the README file) should be updated to reflect the new changes, if needed.
+
+And that's it! Now the cycle is ready to begin again: discuss what the next tasks are, create issue pages for the tasks, start new branches, commit in new changes as needed, PR submission/review/approval, and clean up.
+
+::: try
+Delete your branch and close the associated issue. If you have any questions, please reach out to Chi-Hyun.
+:::
+
+# Tips
+
+1. Github Desktop is fairly smart about suggesting actions, on the top-right of the application's window. These suggestions should generally be followed.
+2. Remember that your *local* repository is not the same as the *remote* repository (also called 'origin'). They are linked but independent entities. Changes made to the remote repository won't be visible on your local machine unless you take some action. You won't even know that there *are* changes to the remote repo unless you fetch it.
+3. The remote repository (on GitHub) is the authoritative source because it's the one that everyone in the project (and any future readers) has access to.
+4. Always make sure your local repository is up to date with the remote repository before starting work. ('Fetch Origin' then (if there are changes) 'Pull Origin' on Github Desktop.)
+5. Make commit messages clear and don't use the default message.
+6. Committing only takes a snapshot of a particular branch on a particular repository. It does *not* update the remote repository, so push after you commit.
+7. When your colleagues submit a pull request, review it promptly, both so that you are aware of the changes being made, and so that their work can continue.
+8. On the other side, if someone reviewing your PR has a comment or asks a question, answer them promptly so the PR can move forward.
+9. If you are uncertain about a feature in Git/Github/Github desktop, Github will probably have a helpful documentation page you can find with a web search.
+
+::: {.callout-tip}
+See the [Version control](code-guidelines.qmd#version-control) section of the Code Guidelines page for more on how to integrate version control into your projects.
+:::

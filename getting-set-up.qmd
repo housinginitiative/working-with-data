@@ -1,0 +1,77 @@
+---
+title: "Getting set up"
+format: html
+---
+
+The quantitative workflow at HIP depends on three external systems: R, Github, and Box. Here are some step-by-step guides to help get you set up, whether you've just joined our team or setting up a new machine.
+
+# R
+
+## Install
+
+This one's easy. R and RStudio should already be installed on your machine. If it's not, contact the IT help desk at ithelp@design.upenn.edu.
+
+::: {.callout-note}
+RStudio is an integrated development environment (IDE) focused on R, which is basically a highly-featured text editor bundled with an R console, data viewer, and other tools. You can use other IDEs like Visual Studio Code if you have a prior preference.
+:::
+
+## Tips
+
+Since RStudio is going to be a daily tool for you, here are some quality-of-life tips:
+
+- You don't want to waste your life typing out `%>%` every time. You can use the standard keyboard shortcut (`cmd/ctrl` + `shift` + `M`), or configure the shortcut to your liking (Tools > Modify keyboard shortcuts). 
+- The same goes for the assignment operator (`<-`), `option/alt` + `-` (though I prefer changing it to `cmd` + `-`).
+- If you use the shortcut `cmd` + `return` (or `ctrl` + `enter`), RStudio will run the statement (e.g., a pipeline) where your cursor is located.
+- The `cmd/ctrl` + `option/alt` + `b` shortcut runs the script up to the point of the cursor (R scripts only).
+- See [this page](https://jimgar.github.io/posts/rstudio-keyboard-shortcuts/post.html) for a list of other very helpful shortcuts.
+
+Consider making your own [default templates](https://forum.posit.co/t/how-to-change-the-rmarkdown-document-template/98023) for new R scripts and RMD files, pre-populated with an empty `Purpose` section and `library` calls to your favorite packages.
+
+I also recommend experimenting with the aesthetics of how your code is displayed (Tools > Global options > Appearance)— setting up code highlighting to your satisfaction can make a difference for legibility. You can also configure theme files for custom code highlighting options.
+
+# Github
+
+Here are the initial setup steps:
+
+1. [Register](https://github.com/signup) a Github account if you don't have one. A straightforward rendering of your name is recommended.
+2. Join Penn's [Github Campus Program](https://github.com/upenn), which will allow you access to some features like private repositories.
+3. Join the Housing Initiative at Penn's [Github organization](https://github.com/housinginitiative). This will let you see the private repositories organized here.
+4. Download [Github Desktop](https://desktop.github.com/). This is a graphical user interface application to manage your Github repositories and execute Git commands.
+5. [Authenticate](https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/authenticating-to-github-in-github-desktop) to your Github account from Github Desktop.
+
+::: {.callout-note}
+You can also execute Git commands using the command line or another GUI application, but unless you have a prior preference you should use Github Desktop. RStudio also has built-in Git integration, but this option is *not* recommended due to usability issues.
+:::
+
+Once you're done setting up, head over to the [Using Github](using-github.qmd) page to read about why and how we use Github, and try the practice exercise at the end of that page.
+
+# Box
+
+We use Box to store data and metadata about projects. This includes thing like project scope documents, writeups, and data (both raw and intermediate). Any private or previleged **data** *must* be stored on Box and nowhere else. On the other hand, **code** should be managed in a Github repository and *not* be stored on Box—instead, leave a readme file in the project Box folder with a link to the Github repository.
+
+The setup here has two parts.
+
+First, install the [Box Drive application](https://www.box.com/resources/downloads). This lets you access Box locations as a remote drive, so that you can refer to items on Box with filepaths as if they lived on your computer. (Your OS's finder/file explorer is also a much more streamlined interface than the Box website for normal browsing and searching).
+
+Second, make sure that your code referring to items on Box knows where to find the Box items. You do this by setting an R environment variable—otherwise, you'd need to hardcode Box filepaths, which would make that code unreproducible.
+
+To do this, do the following once per machine:
+
+1. Install the R `usethis` package if not already installed
+2. From an RStudio's R console, run `usethis::edit_r_environ()`
+4. In the editor that pops up, type a new line: `BOX_PATH = "your_path"`
+5. `your_path` should be replaced with your own machine's path to the top-level Box directory (as a string), for example: `"/Users/USERNAME/Library/CloudStorage/Box-Box"`
+6. Be sure to include the quotation marks. Note the lack of a final slash at the end of the path. Windows users should use the slash and not the native backslash.
+
+When a Box path is needed in code, simply concatenate `Sys.getenv("BOX_PATH")` with the location of your desired location in the Box structure, which should be the same for everyone. 
+
+::: {.callout-tip}
+It's convenient to set this up as a variable at the beginning of your code so you can reuse it in the rest of the script. For example: `project_data_path <- paste0(Sys.getenv("BOX_PATH"), "/project_name/data")`
+:::
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+---
+title: "Resources"
+format: html
+---
+
+Below is a list of resources that may be useful for your work.
+
+# Books
+
+- [**R for Data Science**](https://r4ds.hadley.nz/)
+  - The best single-source reference for using R/Tidyverse in data analytics. If you haven't read through it before, I highly recommend it.
+- [**Analyzing US Census Data: Methods, Maps, and Models in R**](https://walker-data.com/census-r/index.html)
+  - All you need to know about working with Census Bureau data (including ACS and PUMS) using Tidycensus and friends.
+- [**Spatial Data Science With Applications in R**](https://r-spatial.org/book/)
+  - The main reference work for geospatial analysis in R, using the sf package and friends.
+- [**Tidy Modeling with R**](https://www.tmwr.org/)
+  - Explicates the Tidymodels package family, indespensible for modeling workflows in R.
+
+# R packages
+
+- [**Tidylog**](https://github.com/elbersb/tidylog)
+  - A must-have. Tidylog prints out a log of most tidyverse operations in the console whenever you run them. Did this `mutate` operation introduce NAs? How many rows were dropped when I `filter`ed? Does this `left_join` introduce duplicates? This is information that you need to know, and tidylog will helpfully serve it to you, saving you very tedious repeated work. Install the development version linked at the [package git repo](https://github.com/elbersb/tidylog).
+
+- [**Janitor**](https://sfirke.github.io/janitor/index.html)
+  - Provides a wealth of very useful functions, including automatic variable name cleaning, deduplication management, and creating easy summary tables.
+
+- [**Skimr**](https://github.com/ropensci/skimr)
+  - A very convenient initial exploratory data analysis tool, providing a helpful overview of any dataframe.
+
+- [**fastLink**](https://github.com/kosukeimai/fastLink)
+  - Provides a powerful probabilistic linkage algorithm for joining records.
+  
+- [**unpivotr**](https://nacnudus.github.io/unpivotr/)
+  - Powerful package for tidy-ing grotesque Excel spreadsheets
+
+# Other resources
+
+- [**Census Reporter**](https://censusreporter.org/topics/)
+  - A great readable reference for Census data products. The linked page lists ACS tables organized by topic. Want to know everything the ACS has on housing? Just check the [Housing](https://censusreporter.org/topics/housing/) topic page.
+  
+- [**TIGERweb**](https://tigerweb.geo.census.gov/tigerweb/)
+  - An interactive interface for viewing Census geographic boundaries. A good tool to quickly check questions like: do PUMA boundaries overlap County X's boundaries? How many census tracts are in City Y? 
+  
+- [**Programming with dplyr**](https://dplyr.tidyverse.org/articles/programming.html)
+  - A reference page for handling tidyverse-special programming constructs like tidy evaluation in your functions. You will want to refer to this page when you write functions to encapsulate tidyverse pipelines (which will be often).
+
+- [**Tidyverse style guide**](https://style.tidyverse.org/)
+  - Standards for neat code
+  
+- [**How to Write a Git Commit Message**](https://cbea.ms/git-commit/)
+  - Tips for writing great commit messages
+  
+- [**Create Quarto websites**](https://quarto.org/docs/websites/)
+  - Detailed guide about how to creating Quarto websites, like this one
+
+
+
