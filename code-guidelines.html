@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Guidelines for code – Working with data at HIP</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+div.callout-bad.callout {
+  border-left-color: #d9325eff;
+}
+div.callout-bad.callout-style-default > .callout-header {
+  background-color: rgba(217, 50, 94, 0.13);
+}
+div.callout-bad .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-bad.callout-style-default .callout-icon::before, div.callout-bad.callout-titled .callout-icon::before {
+  content: '🚫';
+  background-image: none;
+}
+div.callout-good.callout {
+  border-left-color: #0b9444ff;
+}
+div.callout-good.callout-style-default > .callout-header {
+  background-color: rgba(11, 148, 68, 0.13);
+}
+div.callout-good .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-good.callout-style-default .callout-icon::before, div.callout-good.callout-titled .callout-icon::before {
+  content: '✅';
+  background-image: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Working with data at HIP</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./getting-set-up.html"> 
+<span class="menu-text">Getting set up</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./using-github.html"> 
+<span class="menu-text">Using Github</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./code-guidelines.html" aria-current="page"> 
+<span class="menu-text">Guidelines for code</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">0. Motivation</a></li>
+  <li><a href="#good-code" id="toc-good-code" class="nav-link" data-scroll-target="#good-code">1. Good code</a></li>
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">2. Basics</a>
+  <ul class="collapse">
+  <li><a href="#usage-and-style" id="toc-usage-and-style" class="nav-link" data-scroll-target="#usage-and-style">Usage and style</a></li>
+  <li><a href="#naming" id="toc-naming" class="nav-link" data-scroll-target="#naming">Naming</a></li>
+  <li><a href="#commenting" id="toc-commenting" class="nav-link" data-scroll-target="#commenting">Commenting</a></li>
+  <li><a href="#miscellaneous" id="toc-miscellaneous" class="nav-link" data-scroll-target="#miscellaneous">Miscellaneous</a>
+  <ul class="collapse">
+  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates">Dates</a></li>
+  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#project-and-script-organization" id="toc-project-and-script-organization" class="nav-link" data-scroll-target="#project-and-script-organization">3. Project and script organization</a>
+  <ul class="collapse">
+  <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version control</a></li>
+  <li><a href="#ordering-and-organizing" id="toc-ordering-and-organizing" class="nav-link" data-scroll-target="#ordering-and-organizing">Ordering and organizing</a></li>
+  <li><a href="#scripts-vs-reports" id="toc-scripts-vs-reports" class="nav-link" data-scroll-target="#scripts-vs-reports">Scripts vs reports</a></li>
+  </ul></li>
+  <li><a href="#important-pitfalls-and-how-to-avoid-them" id="toc-important-pitfalls-and-how-to-avoid-them" class="nav-link" data-scroll-target="#important-pitfalls-and-how-to-avoid-them">4. Important pitfalls and how to avoid them</a>
+  <ul class="collapse">
+  <li><a href="#know-your-data" id="toc-know-your-data" class="nav-link" data-scroll-target="#know-your-data">Know your data!</a>
+  <ul class="collapse">
+  <li><a href="#whats-the-data-for" id="toc-whats-the-data-for" class="nav-link" data-scroll-target="#whats-the-data-for">What’s the data for?</a></li>
+  <li><a href="#whats-in-the-data" id="toc-whats-in-the-data" class="nav-link" data-scroll-target="#whats-in-the-data">What’s in the data?</a></li>
+  <li><a href="#the-data-cycle" id="toc-the-data-cycle" class="nav-link" data-scroll-target="#the-data-cycle">The data cycle</a></li>
+  </ul></li>
+  <li><a href="#na-handling" id="toc-na-handling" class="nav-link" data-scroll-target="#na-handling">NA handling</a></li>
+  <li><a href="#dirty-environments" id="toc-dirty-environments" class="nav-link" data-scroll-target="#dirty-environments">Dirty environments</a>
+  <ul class="collapse">
+  <li><a href="#within-file" id="toc-within-file" class="nav-link" data-scroll-target="#within-file">Within-file</a></li>
+  <li><a href="#between-files" id="toc-between-files" class="nav-link" data-scroll-target="#between-files">Between-files</a></li>
+  <li><a href="#packages-and-functions" id="toc-packages-and-functions" class="nav-link" data-scroll-target="#packages-and-functions">Packages and functions</a></li>
+  </ul></li>
+  <li><a href="#grouped-data" id="toc-grouped-data" class="nav-link" data-scroll-target="#grouped-data">Grouped data</a></li>
+  </ul></li>
+  <li><a href="#summing-up" id="toc-summing-up" class="nav-link" data-scroll-target="#summing-up">5. Summing up</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Guidelines for code</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="motivation" class="level1">
+<h1>0. Motivation</h1>
+<p>We want our work at HIP to be accurate, transparent, and convincing—including the code we write. This document describes some guidelines to achieve those goals, and points out some common pitfalls and effective ways to avoid them.</p>
+<p>To set the stage, imagine the following scenario:</p>
+<ol type="1">
+<li>You get brought on to an existing project</li>
+<li>You write some code to handle some task</li>
+<li>You get pulled to another project</li>
+<li>Ten months later, you’re asked to revise the code to do something slightly different</li>
+</ol>
+<p>This is a common scenario that can give rise to difficulties, for example:</p>
+<ul>
+<li>Figuring out where the code lives</li>
+<li>Figuring out what some particular script does in relation to the others</li>
+<li>Figuring out what the data sources are and if they need to be changed</li>
+<li>Figuring out what object and variable names mean</li>
+<li>Figuring out why this code was written in a particularly way</li>
+</ul>
+<p>This may be the case whether you’re reading code from past-you, or from someone else. But the good news is that most of these pain points can be prevented or mitigated by following some good practices from the beginning.</p>
+<p>The intent of this guide is to present a set of good, generally applicable practices to help you write clear, legible, and adaptable code. The examples come from R, but the general principles hold regardless of programming language.</p>
+</section>
+<section id="good-code" class="level1">
+<h1>1. Good code</h1>
+<p>What does this mean to create code that is “clear, legible, and adaptable”?</p>
+<p>When we perform research, we want the results to be reliable. This is of course true for any important task, but is especially important in our research: we want to present conclusions and recommendations that are based on transparent and thoughtful analysis of data. We do <em>not</em> want policy decisions to be influenced by error-laden or careless research.</p>
+<p><em>Good code</em> means code that leads to reliable and meaningful analyses. It should take the analysis step-by-step from the raw data source to the communication of the results, in a way that any careful reader can understand.</p>
+<p>Think back to the hypothetical scenario from the top of the page, and think about what would make your life (and your colleagues’ lives) easier or more difficult.</p>
+<p>Here are some important heuristics to keep in mind throughout a project. If your code reflects these qualities, your life is likely to be much easier down the road.</p>
+<ul>
+<li>Code should be <strong>universal</strong>: you, and anyone else with access to the data, should be able to run your code out-of-the-box without tinkering or having to complete any procedure more complex than downloading needed packages.</li>
+<li>Code should be <strong>replicable</strong>: when you (or anyone) runs the code, the results should be the same.</li>
+<li>Code should be <strong>legible</strong>: it should be easy to read your code.</li>
+<li>Code should be <strong>clear</strong>: your code should not be ambiguous (either to the computer or to a human). To a human, the purpose of your code should be easily apparent.</li>
+</ul>
+<p>As you write your code, always imagine that someone may want to look at your code immediately and have the code make sense to them. Keeping clean code consistently can be an extra effort, but it will make for a better and more professional product, which will ultimately make the project an easier and more rewarding one.</p>
+</section>
+<section id="basics" class="level1">
+<h1>2. Basics</h1>
+<p>We start with the basics—clear writing. The reason is this: before anyone (including a future version of you) can begin to understand any code, they must be able to read it. Code is almost inherently difficult to read because writing for computers is generally not how humans understand natural language. But there are some basic principles that can help you write more legible code.</p>
+<p>Most of what follows is conventional: you could use a different set of conventions if you wanted. The most important principle is <em>to be consistent</em>. However, the following conventions are the official standards for writing R code for the tidyverse packages, and should be followed when writing in R. (If writing in other languages, you should pick a widely used style guide for that language and follow it.)</p>
+<p>For more, see the <a href="https://style.tidyverse.org/">tidyverse style guide</a>.</p>
+<section id="usage-and-style" class="level2">
+<h2 class="anchored" data-anchor-id="usage-and-style">Usage and style</h2>
+<p>These are the most important conventions for legibility:</p>
+<ul>
+<li><p>Code blocks defining an object (like a pipeline) should have line breaks around them. But if there are multiple single-line statements that thematically relate, no line breaks among them are needed.</p></li>
+<li><p>There should be one space around every operator (like <code>%&gt;%</code>, <code>+</code>, <code>-</code>, <code>/</code>, <code>=</code>, <code>%in%</code>).</p></li>
+</ul>
+<div class="callout callout-style-default callout-good callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>sum_amount &lt;- 1 + 3</code></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-good callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>ggplot(aes(x = category, y = percent))</code></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-bad callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoid
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>mean(x, na.rm=TRUE)</code></p>
+</div>
+</div>
+<ul>
+<li><p>If a function call is longer than about 88 characters, it should be broken up into separate lines to fit the screen if possible. One line per argument is a good idea.</p></li>
+<li><p>Parentheses around function calls should have no spaces surrounding them.</p></li>
+</ul>
+<div class="callout callout-style-default callout-good callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>max(x)</code></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-bad callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoid
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>max ( y )</code></p>
+</div>
+</div>
+<p>But parentheses for control statements (like <code>if</code>) and for bracketing statements (like <code>(1 + 1) / 10</code>) should have surrounding spaces.</p>
+<ul>
+<li><p><code>TRUE</code> and <code>FALSE</code> are special keywords and should always be written out fully in all-caps in R, not as ‘T’ or ‘True’.</p></li>
+<li><p>If you load a package with <code>library()</code> (which should always come at the beginning of a script), you should not specify the package in the code (e.g., <code>dplyr::select</code>). Only use the <code>::</code> notation if you are using a one-off function without loading the package, or if you specifically need it to avoid function name conflicts among packages you’ve loaded.</p></li>
+</ul>
+</section>
+<section id="naming" class="level2">
+<h2 class="anchored" data-anchor-id="naming">Naming</h2>
+<p>You should use <code>snake_case</code> in naming variables—snake_case has good legibility and is less difficult to misspell than some other alternatives.</p>
+<ul>
+<li><code>camelCase</code> doesn’t have helpful underscores between them to separate words, and is not as apparent if you misspell (for example by missing a cap).</li>
+<li><code>dot.case</code> is fine, but in some programming contexts dot-separation has a technical reserved meaning so can be potentially confusing.</li>
+<li><code>runoncase</code> is illegible.</li>
+</ul>
+<p>You should <em>not</em> mix cases, either within a name (🚫 <code>Object_Name</code>) or within a script (🚫 <code>object_name_one</code>, <code>objectNameTwo</code>). Dealing with object names can be a pain for both readers and writers, so you should make naming style as simple as possible.</p>
+<p>Over and above the visual conventions, a great name will be:</p>
+<ul>
+<li>Meaningful</li>
+<li>Unambiguous</li>
+<li>Short</li>
+</ul>
+<p>However, optimizing for all 3 qualities is difficult. The strong recommendation is to favor meaningfulness and unambiguousness, even at the cost of length. A long variable name is annoying, but a confusing variable name is useless—or downright dangerous.</p>
+<div class="callout callout-style-default callout-good callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>tract_geoid_2022</code></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-bad callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoid
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>trc_GEOID_22</code></p>
+<p>There are at least three things that are not ideal about the example above. What are they?</p>
+</div>
+</div>
+<p>Using ad-hoc abbreviations in variable names is doubly problematic because it’s both difficult to understand (What does <code>trc</code> mean? Can you expect that everyone reading the code will know?) and easy to mistype (Which letters are left out? If you miss a letter, will you be able to tell easily?). If in doubt, spell it out.</p>
+<p>If you have a series of variables that are thematically related, give them the same structure so the reader has a handle on what they are.</p>
+<div class="callout callout-style-default callout-good callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>tract_geoid_2022</code>, <code>tract_geoid_2023</code>, <code>tract_geoid_2024</code></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-good callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Good
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>geoid_tract_2022</code>, <code>geoid_county_2022</code>, <code>geoid_state_2022</code></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-bad callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoid
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>tract_geoid_2022</code>, <code>tract_2023_geoid</code>, <code>geoid_tract_2024</code>, all in the same dataset</p>
+</div>
+</div>
+<p>Also consider how names might be interpreted (or misinterpreted) down the road, especially by someone who does not know the underlying data well. People will make assumptions about things based on what they are called, so take care that your names do not lead people to make inaccurate assumptions about what your objects represent. If in doubt, err on the side of making names too precise, rather than being too interpretive.</p>
+<p>The same conventions also apply for naming files (either for script names or for outputs). Avoid spaces and special characters other than <code>-</code> or <code>_</code> in filenames, as such names cannot be easily referenced in command line and for Git.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be aware that Windows <em>still</em> has a low character-length limit for filenames, so avoid deeply-nested directory structures or very long filenames.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some file formats, like ESRI’s shapefile format, have restrictive variable name length limits. Do not write out to these formats.</p>
+</div>
+</div>
+</section>
+<section id="commenting" class="level2">
+<h2 class="anchored" data-anchor-id="commenting">Commenting</h2>
+<p>Commenting your code is an indispensable requirement to make it legible and understandable.</p>
+<p>Immediately when you start a new script, include a heading at the top named ‘Purpose’ or similar, with a description of the purpose of the script written out in a short paragraph. If the purpose changes as you go along, update this comment.</p>
+<p>In the body of the script, section titles are a good way to orient the reader. Each new section (e.g., “Read in data”, “Process data”, “Output cleaned data”) should have a corresponding comment line. Within each section, major steps (like starting a new pipeline) often should have a short 1-line comment.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the cmd/ctrl-shift-R shortcut in RStudio to insert a commented section heading. In RMD or Quarto files, name the R chunks instead, as needed.</p>
+</div>
+</div>
+<p>Occasionally, some intermediate steps may benefit from their own comment lines. For example, you might do a particularly tricky conditional <code>mutate</code> and a comment might clear up some of your reader’s questions preemptively.</p>
+<p>An important case: if you’re changing the number of observations in your data, or changing the number of NA values in a variable, you should insert a comment indicating how many rows were affected, because this information can be critical to any further processing steps either now or in the future. The <code>tidylog</code> package (which you should always use) will generate this log for you automatically which you can copy-paste in as a comment.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the cmd/ctrl-shift-C shortcut in RStudio to toggle a line (or block) of code in and out of comment status.</p>
+</div>
+</div>
+<p>Think of comments as descriptions of <em>why</em> you did what you did (and sometimes <em>what</em>), rather than <em>how</em>. The <em>how</em> should be apparent from reading the code itself (and if it isn’t, think about how you could write the code to make it clearer).</p>
+</section>
+<section id="miscellaneous" class="level2">
+<h2 class="anchored" data-anchor-id="miscellaneous">Miscellaneous</h2>
+<section id="dates" class="level3">
+<h3 class="anchored" data-anchor-id="dates">Dates</h3>
+<p>When using dates and times in variable names or filenames, always use the <a href="https://xkcd.com/1179/">ISO 8601</a> standard (for dates, that’s YYYY-MM-DD). This way, when you sort by name, the names will also be sorted chronologically. Only use dates in non-ISO 8601 formats in code when needing to write in ‘regular’ English, like in body text or plot labels (and in this case, write out the month names so that it’s unambiguous internationally).</p>
+</section>
+<section id="security" class="level3">
+<h3 class="anchored" data-anchor-id="security">Security</h3>
+<p>Do <strong>not</strong> expose any private information in your code. This includes any PII (personally identifiable information) and any API keys or passwords you may use for 3rd-party services.</p>
+<p>If you need to refer to PII (e.g., to reference a specific address), use an anonymous key instead (e.g., a participant ID).</p>
+<p>API keys should be stored in your .REnviron file and be called from there. Packages like <code>tidycensus</code> will automatically call your key from the .REnviron file. API keys are private information and you don’t want others to potentially misuse your API key. The easiest way to edit your .REnviron file to run <code>usethis::edit_r_environ()</code>.</p>
+</section>
+</section>
+</section>
+<section id="project-and-script-organization" class="level1">
+<h1>3. Project and script organization</h1>
+<p>We’ve discussed some general guidelines for clearer code, but how you organize your project files is also important. Below are some considerations.</p>
+<section id="version-control" class="level2">
+<h2 class="anchored" data-anchor-id="version-control">Version control</h2>
+<p>If the project you are working on has a Github repository, use it—all your code for that project should live in that repo. Speak with your colleagues on the project beforehand to make sure how you plan to organize your files within the repository makes sense, and to ascertain the best way for you to manage your contributions (e.g., using branches named in a certain way).</p>
+<p>If your project does not yet have a repository, it probably should. Speak with your colleagues about the structure that makes the most sense for your project.</p>
+<p>When you’re working on a task, it is best practice to use a branch that corresponds to that task. When you’re finished with the task, use the pull request system to coordinate the review of your code and the incorporation of your changes into <code>main</code>.</p>
+<p>You should use the <a href="https://desktop.github.com/download/">Github Desktop app</a> to manage your interface with Git, rather than the built-in RStudio interface (which is missing several important features).</p>
+<p>For more on Git and Github, see the <a href="./using-github.html">Using Github</a> page on this website.</p>
+</section>
+<section id="ordering-and-organizing" class="level2">
+<h2 class="anchored" data-anchor-id="ordering-and-organizing">Ordering and organizing</h2>
+<p>How exactly your scripts should be organized will vary greatly by project. Check in with your colleagues from time to time about the organization of project files. Usually this is not considered a particularly exciting topic, but good organization that adapts to changing circumstances is well worth putting in the occasional time. Remember that projects often do not go away as scheduled! Someone (probably you) may need to revive the project 6 (or 10, or 24) months later. The less you have to reconstruct the project then, the better.</p>
+<p>One generally applicable principle, however, is to keep major steps of the data science pipeline (cleaning, EDA, analysis, modeling, communication) separate. In a smaller project, this might be one script or RMD per step; in a larger project, each step may have multiple scripts organized in directories.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If there are multiple scripts per directory, prefix them numerically (starting with ‘00_’ or ‘01_’) so that they display in order. The order should be the order the scripts should be executed in.</p>
+</div>
+</div>
+<p>Remember that the data that you input/output from your scripts into Box should also be well organized. Keep a separate readme in the project data folder describing each of the datasources as well as the intermediate outputs, as well as a link to the project repo. The readme in the project repo should also have a link to the Box data folder.</p>
+</section>
+<section id="scripts-vs-reports" class="level2">
+<h2 class="anchored" data-anchor-id="scripts-vs-reports">Scripts vs reports</h2>
+<p>Generally, if what you want to do is communicate some aspect of our data (EDA, or a polished analysis) to a larger audience (the rest of your team or to the public), you want to write in a format that supports interleaving code and expository writing: for R, this will be Quarto or R Markdown.</p>
+<p>However, for material that is not explicitly communicative in nature, I recommend using regular .R scripts instead. This is because RMD/Quarto files are paradoxically <em>less</em> legible and more cumbersome if you’re interested only in the code (for example, RMDs will not have syntax highlighting when viewed on Github).</p>
+</section>
+</section>
+<section id="important-pitfalls-and-how-to-avoid-them" class="level1">
+<h1>4. Important pitfalls and how to avoid them</h1>
+<p>In this section, we move to more conceptual—but still fundamental—issues that are relevant to how you should approach any analysis. As you move through a project, keep half a brain engaged to make sure you continually understand what’s going on with your data and analysis. The following are some specific things to keep track of, but the list is not exhaustive—are there any items you think should be added to the list?</p>
+<section id="know-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="know-your-data">Know your data!</h2>
+<p>The very first step is to know what you’re working with: that should be your first goal when you start a project. Make sure you understand the following:</p>
+<section id="whats-the-data-for" class="level3">
+<h3 class="anchored" data-anchor-id="whats-the-data-for">What’s the data for?</h3>
+<section id="the-goals-of-the-project" class="level4">
+<h4 class="anchored" data-anchor-id="the-goals-of-the-project">The goals of the project</h4>
+<p>What’s the purpose of the research? What are the research questions? What facts will you need to answer these questions? Make sure you are on the same page as as your colleagues.</p>
+</section>
+<section id="domain-specific-information" class="level4">
+<h4 class="anchored" data-anchor-id="domain-specific-information">Domain-specific information</h4>
+<p>What program, policy, or entity is this data about? Get background knowledge. If the data come from a program, what does the program do? Who’s eligible? Who funds it? When did it start? Ask your colleagues to share with you any background material.</p>
+</section>
+<section id="the-data-source" class="level4">
+<h4 class="anchored" data-anchor-id="the-data-source">The data source</h4>
+<p>Who gave you the data? Who collected it? How did you get it? Were the data compiled by someone before you got it? If so, who did it and how was it done? Often, the datasource will be a project partner, or a colleague. Again, ask your colleagues; see if any questions about the data can be addressed by asking the datasource.</p>
+</section>
+<section id="metadata" class="level4">
+<h4 class="anchored" data-anchor-id="metadata">Metadata</h4>
+<p>This can be a data dictionary, a description of the data collection procedures, survey questionnaires, or even notes from meetings with the datasource. But be careful! Just because there <em>is</em> a data dictionary, it doesn’t mean that it’s <em>accurate</em>. Data dictionaries are seductive because they promise authoritative information, but they are fallible. The definitions of fields often change as data are collected. There can also be outright errors in data dictionaries, even from venerable sources like the Census Bureau. Verify before you trust.</p>
+</section>
+</section>
+<section id="whats-in-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="whats-in-the-data">What’s in the data?</h3>
+<p>Expanding upon this theme: it is unwise to assume anything about the data that you haven’t checked out for yourself. This is especially the case if you think you <em>do</em> have reasons to trust the datasource. Whenever you work with a dataset, you should convince yourself that you understand the following:</p>
+<section id="what-you-have" class="level4">
+<h4 class="anchored" data-anchor-id="what-you-have">What you have</h4>
+<p>Do you have the number of rows you expect to have? Is the file suspiciously too large or too small? Is it older or newer than you expected? Is the filename weird? Are there any warnings when you import the data?</p>
+<p>If your dataset is less than ~1000 rows and ~50 columns, it’s a good idea to manually skim through the entire dataset when you first import it. If your dataset is larger, look first at a few hundred contiguous records, and then pull out a random chunk (e.g., with <code>dplyr::slice_sample</code>) to manually examine.</p>
+<p>If your data are updated with newer data, you should be ready to encounter new anomalies; have procedures in hand to check incoming data before you rely on them.</p>
+</section>
+<section id="what-represents-a-record" class="level4">
+<h4 class="anchored" data-anchor-id="what-represents-a-record">What represents a record</h4>
+<p>What do you expect each row to represent, and is this actually the case? If there is a unique ID, is it <em>actually</em> unique? If there isn’t one, can you reliably create one from the data, or do you need more information? Are there duplicates among the rows which should belong to a unique record? If there are, why? And what do you need to know to be able to understand the duplicates and resolve them? (A helpful tool for this is <code>janitor::get_dupes()</code>.)</p>
+</section>
+<section id="what-are-the-record-attributes" class="level4">
+<h4 class="anchored" data-anchor-id="what-are-the-record-attributes">What are the record attributes</h4>
+<p>In short, what are the columns? Does the formatting of the column names make sense? (If they do, you can use <code>janitor::clean_names()</code> to standardize them to snake_case. If they don’t make sense, you should investigate further.) How many columns are there and what are the types? (You can use <code>skimr::skim()</code> to answer this question.) If the data types are not what you expect (e.g., ZIP codes stored as numerics or dates stored in Excel format), are they fixable? Are there any columns which appear duplicated, or could refer to the same thing? If so, verify that they are actually exactly the same, or find out exactly how they differ.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be careful about assuming data types based on what they look like. A GEOID column, for example, may only have numeric digits but should be stored as strings. Check the types explicitly.</p>
+</div>
+</div>
+</section>
+<section id="missing-data" class="level4">
+<h4 class="anchored" data-anchor-id="missing-data">Missing data</h4>
+<p>How does your dataset encode missing data? In some datasets, missing data are specific values, like ‘-b’ or ‘-1’. Sometimes missing values can vary by variable, like the lowest possible value for that column minus one. In others, it may be keywords like NULL, Null, NaN, nan, N/A, n/a, N/a, or any variation thereof. Often, a dataset will have several different ways to encode NAs.</p>
+<p>One of the first things you should do is to standardize all missing values (but <em>only</em> the missing values) to R’s <code>NA</code> keyword. Once that’s done, are there any rows or columns that are completely NA? (<code>janitor::remove_empty()</code>, with verbosity on, is helpful.) If so, is it safe to remove them? Inspect the <code>skim</code> output and notice any variables with large NA percentages. But just as suspicious are variables with zero NAs: were missing values for these variables coded badly (e.g., did the datasource assume that NA means FALSE?)? In some cases, it might be ambiguous whether a value like <code>0</code> is really a zero or actually represents missing or inapplicable data. In such a case you may need to address a question to the datasource.</p>
+</section>
+<section id="unexpected-values" class="level4">
+<h4 class="anchored" data-anchor-id="unexpected-values">Unexpected values</h4>
+<p>For numeric variables, sort by ascending and descending and notice any outliers. A simple histogram can also be a good tool. Are people reporting negative number of children? Is there anyone earning $10 million in income? Are 30% of the rows reporting $0 in rent? Are there implausible dates? For categorical variables, how many unique values are there for each variable? How common is each unique variable value? The <code>skim</code> output, and <code>janitor::tabyl()</code>, can get you quick initial answers for many of these questions. You may also find some more issues with nonstandard NA values at this point.</p>
+</section>
+<section id="geographic-data" class="level4">
+<h4 class="anchored" data-anchor-id="geographic-data">Geographic data</h4>
+<p>For any datasets with geospatial information, make sure you know which coordinate reference system (<a href="https://r-spatial.org/book/02-Spaces.html#sec-crs">CRS</a>) is applicable—don’t assume, for example, that a GEOJSON file has coordinates in WGS84 (even though it should). Before you work with geospatial data, map the data and check they’re located where you expect them to be (e.g., Philadelphia, not <a href="https://en.wikipedia.org/wiki/Null_Island">Null Island</a>).</p>
+</section>
+<section id="relationship-with-other-data" class="level4">
+<h4 class="anchored" data-anchor-id="relationship-with-other-data">Relationship with other data</h4>
+<p>If records in the current dataset need to be joined to records in another, is there a common join key? If there is, how many fail to join from each dataset and is there an explanation why? If there is not a pre-existing join key, do you have the information you need to construct one? If a field in your current dataset also exists in another dataset, do they agree with each other, for every matched record?</p>
+</section>
+</section>
+<section id="the-data-cycle" class="level3">
+<h3 class="anchored" data-anchor-id="the-data-cycle">The data cycle</h3>
+<p>There’s a common saying that 90% of data work is data cleaning and 10% is analysis. That’s false. It’s closer to the truth to say that 50% is understanding what the data contain in the first place, 45% is cleaning, and 5% is analysis, though the exact proportion will differ between projects.</p>
+<p>There is an order of operationws: You should start getting to know the data before you clean it, and you should be comfortable with data quality before you do any analysis. But the work will be iterative—you may find some unexpected pattern while you clean, and structuring an analysis may suggest ways to understand the data differently. Don’t be afraid of revisiting prior steps with better knowledge, but at the same time, understand that decisions you make at the earliest stages are also the most difficult to change later. Keep your colleagues updated throughout so that everyone on the project is on the same page.</p>
+</section>
+</section>
+<section id="na-handling" class="level2">
+<h2 class="anchored" data-anchor-id="na-handling">NA handling</h2>
+<p>On to a new topic. How missing data are treated in data processing steps is an important but easily-neglected issue: mistakes in this arena can introduce consequential errors, but are very easy to miss unless you’re looking for them.</p>
+<p>Once you understand the missingness patterns in your data, make sure that your code handles them properly. How R handles missing data can be unintuitive at times, so whenever you construct any logical comparison, or generate any summary, make sure you you’re satisfied how your code dealt with NAs.</p>
+<p>Remember, NAs are not values—they are labels for <code>we don't know</code>. That’s why <code>NA == NA</code> is a meaningless expression and we use <code>is.na()</code> instead.</p>
+<p>The following are common examples of how NA errors can creep in when you don’t watch out for them:</p>
+<ul>
+<li>Be very careful when <code>filter</code>ing based on columns that contain NAs: rows will always drop if the logical comparison evaluates to NA.
+<ul>
+<li>For example, if you want to drop anyone younger than 18, <code>filter(data, age &gt;= 18)</code> will also drop any records with NA for <code>age</code>. Almost never do you actually want this, so you’ll need to write instead <code>filter(data, age &gt;= 18 | is.na(age))</code>.</li>
+<li>If you <em>do</em> want to drop rows with NAs, explicitly note this in a comment, and include in the comment how many rows are dropped.</li>
+</ul></li>
+<li><em>Most</em> R operations will propagate NAs (e.g.&nbsp;the <code>mean()</code> of any vector containing NA will itself be NA), but not always.
+<ul>
+<li>The <code>%in%</code> operator will never return NA. Evaluating <code>NA %in% NA</code> will return <code>TRUE</code>! This may be what you want, but keep in mind that <code>%in%</code> is not interchangeable with element-wise <code>|</code>, which can return NA.</li>
+<li>Dplyr’s <code>join</code> family will unfortunately match NAs in the join key(s) with each other, so that everyone with a missing join key in dataframe A will match with everyone missing a join key in dataframe B. This is the opposite of SQL behavior. If there’s a chance that your join key(s) will include any NAs, set the argument <code>na_matches = "never"</code>.</li>
+</ul></li>
+<li>Generally, don’t forget that NAs can be introduced even if you don’t specify such conditions explicitly. Don’t expect <code>ifelse()</code> or <code>case_when()</code> to always output non-missing values.</li>
+</ul>
+<p>To help mitigate any NA-driven errors, keep an eye on the <code>tidylog</code> output to make sure that your <code>filter</code> or <code>mutate</code> steps did what you expected. Whenever you introduce, drop, or transform NAs, explicitly note in a comment how many rows are affected.</p>
+</section>
+<section id="dirty-environments" class="level2">
+<h2 class="anchored" data-anchor-id="dirty-environments">Dirty environments</h2>
+<p>Let’s now look more closely at reproducibility. We write code so that our work can be performed again and again with the same results, across users and machines. Sometimes, this requires some pre-planning to achieve. Below are some requirements to keep in mind, divided by considerations that apply to code within a file, versus those that apply to the interrelationships between files.</p>
+<section id="within-file" class="level3">
+<h3 class="anchored" data-anchor-id="within-file">Within-file</h3>
+<section id="filepaths" class="level4">
+<h4 class="anchored" data-anchor-id="filepaths">Filepaths</h4>
+<p>Nearly every script you write will require the specification of some filepaths, in order to read in (or write out) data. Of course, the exact content of the filepath will differ between computers and between operating systems. This means that if you ever call a ‘hard’ (or ‘absolute’) filepath in your script (e.g., <code>/Users/yourname/Documents/Projects/Repos/code-guidelines</code>), it will by definition not work for anyone not using your computer.</p>
+<p>There are two methods that can deal with this. If your project and all of the needed data can live in one directory (or be called by API), the easiest solution is to use an R project. When you create an R project, and open associated scripts in the R project window in RStudio, the R project will bring along its own location so that only relative paths need to be called, which will be the same for everyone using the project directory. <a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner%27s-guide/">This</a> is a useful short guide to using R Projects. However, this situation will rarely be the case at HIP.</p>
+<p>Usually, your data will need to be read from Box, not from within your project directory. For our work at HIP, any data containing sensitive information must be stored on Box; therefore, most projects tracked under Git will need to interface with Box. An API could be used to do this, but the simpler solution is to use Box Drive to enable users to call locations on Box using a regular filepath, and to store the locally-specific part of the Box Drive filepath as a local environment variable in the .REnviron file. The <a href="./getting-set-up.html#box">Getting Set Up</a> page on this website tells you how to set this up.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When storing or writing any path, use the unix directory separator <code>/</code> instead of the Windows separator <code>\</code>. The former can be read cross-platform in R but not the latter.</p>
+</div>
+</div>
+</section>
+<section id="writing-in-place" class="level4">
+<h4 class="anchored" data-anchor-id="writing-in-place">Writing in place</h4>
+<p>It is unfortunately possible create an object, and later alter the object, under the same name. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(data, <span class="sc">!</span><span class="fu">is.na</span>(b))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this example, the same object named <code>data</code> is created or modified at three different places. The example above may look relatively harmless, but is in fact very risky. Consider that dozens—or hundreds—of lines of code may intervene between the three statements. Would you be confident of knowing at any given point whether <code>data</code> has 1 or 2 columns, or whether it has 4 rows or 2?</p>
+<p>Consider that writing code almost always develops interactively, and you may go back and forth between different sections of your script, continuously accumulating unreproducible changes to <code>data</code>. You will lose track of what <code>data</code> contains under such circumstances. This will then lead to code that doesn’t work—or worse: works but without you realizing it does something completely different than what you intended.</p>
+<p>Modifying an existing object without assigning it a new name is called ‘writing in place’. This is dangerous. <strong>Simple rule: <em>never</em> write in place.</strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Never make changes to an object without assigning it a different name.</p>
+</div>
+</div>
+<p>The names of your objects should always have a 1-to-1 relationship with their states. If the state of your objects is not clear, not only will it cause confusion for you and your reader, it is likely that errors will be introduced which are difficult to fix—and worse, difficult to spot.</p>
+<p>Instead, always assign new names to objects when you change them. The example above could be fixed like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_prepared <span class="ot">&lt;-</span> data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">b =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter: removed 2 rows (50%), 2 rows remaining</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(b))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This way, an object will have only one set of contents, always.</p>
+<p>In R, pipes let you do this very naturally and simply. Sometimes the rule of avoiding changing in place means that pipelines may need to be broken out if you need some intermediate computation. That’s fine: having to create one more name is small price to pay to achieve transparent code. When a name is only used once (remember, a pipeline is a single expression), you and your reader will know exactly what the name refers to at all times. It does mean that you may spend some more time thinking of good object names, but that is itself helpful in guiding the reader through what your code does.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In other programming languages like Python, be aware that associating an existing object with a new name actually maintains the link to the old object, and changing the object under the new name also changes the object under the old name. This is one disadvantage of that language compared to R.</p>
+</div>
+</div>
+</section>
+<section id="rng-seeds" class="level4">
+<h4 class="anchored" data-anchor-id="rng-seeds">RNG seeds</h4>
+<p>Some functions will use randomness to do their jobs. Of course, true randomness would be incompatible with reproducibility, but any function that uses a random number generator (really, a <em>pseudo</em>random number generator) can be constrained by setting the RNG seed beforehand, either by explicitly using <code>set.seed()</code> just before the function is called, or sometimes by setting a seed as a function argument. This will constrain the ‘random’ result of the function so that the result is the same across runs.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that a seed value set through <code>set.seed()</code> is ‘consumed’ when it is used, so it will need to be reset every time when an RNG is used, not just once at the beginning of the script.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="between-files" class="level3">
+<h3 class="anchored" data-anchor-id="between-files">Between-files</h3>
+<p>Any but the smallest projects will have more than one script associated with it. It’s crucial for replicability that the relationship between the files is transparent and well-defined. Here are some principles to keep in mind:</p>
+<ol type="1">
+<li>Scripts should be executed one at a time, and the order of execution should be reflected by the name of the script. As stated above, use numeric prefixes to indicate this. For more complex projects it’s a good idea to have separate directories to separate scripts belonging to different stages in the data analytics workflow.</li>
+<li>Scripts should always have <em>explicit</em> inputs and outputs. A script should always start running from a fresh R session, with no objects loaded. Any output from a previous step should be written out in the earlier script as an intermediate and be read in from the later script.</li>
+<li>The state of your RStudio Environment panel should <em>never</em> be treated as authoritative. What’s authoritative is your code, and any files that are written out from your code. What’s real is what’s on the hard drive, not what’s in RAM.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The shortcut cmd-shift-0 (ctrl-shift-F10) will restart R and clear your environment, right where you are without restarting RStudio. You should do this every once in a while while you’re developing scripts to guard against unintended environment-related errors, which can be very difficult to ferret out. Always restart your R session before running a script to write out data.</p>
+</div>
+</div>
+<p>An important corollary is that the origin of any data files and intermediate files should be clear. A readme file specifying where each data/intermediate file comes from will accomplish this. It’s also a good idea to organize intermediates with appropriate directory structures, corresponding to how your source scripts are organized.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If an intermediate file contains PII (for example, cleaned addresses), it is sensitive data and can only be stored in Box.</p>
+</div>
+</div>
+</section>
+<section id="packages-and-functions" class="level3">
+<h3 class="anchored" data-anchor-id="packages-and-functions">Packages and functions</h3>
+<p>A full treatment of package environments in R is beyond the scope of this guide, but a few things to keep in mind are:</p>
+<ul>
+<li>Avoid using functions or features that the package maintainer has labeled deprecated.</li>
+<li>Be careful of functions or packages that are under very active development, as future changes may break backwards compatibility with your code.</li>
+<li>Tools like <a href="https://rstudio.github.io/renv/articles/renv.html"><code>renv</code></a> enhance reproducibility by letting you specify exactly which versions and sources your pakages come from.</li>
+</ul>
+</section>
+</section>
+<section id="grouped-data" class="level2">
+<h2 class="anchored" data-anchor-id="grouped-data">Grouped data</h2>
+<p>One last topic: grouped data. Remember that once a dataframe is grouped, the grouping is persistent, even if the object is copied to a different name. It is best practice to always <code>ungroup()</code> any dataframe immediately after you are done with operations that use the grouping. No dataframe should leave a pipeline in a grouped state. Very difficult-to-unravel bugs can be caused when you forget that a grouped dataframe is grouped and you apply a function that acts on a grouping that no longer makes sense.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In many situations, using the <code>by =</code> or <code>.by =</code> argument to specify grouping within a particular function is more concise than calling <code>group_by()</code> then <code>ungroup()</code> one step later in the pipeline.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="summing-up" class="level1">
+<h1>5. Summing up</h1>
+<p>This is a long page, but it distills some of the lessons learned from many projects involving administrative, survey, and public data at HIP.</p>
+<p>One final tip—please use your colleagues as a resource! Don’t hesitate to discuss with your colleagues any roadblocks or anomalies that you come across; there might be a ready solution, or you might have uncovered an important unresolved issue. You never know until you ask.</p>
+<p>In the meantime, check out the other pages on this website for other helpful tips about <a href="./getting-set-up.html#tips">RStudio</a>, <a href="./using-github.html#tips">Github</a>, or <a href="./resources.html">useful R packages</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
