@@ -18,6 +18,7 @@ website:
             href:  https://github.com/housinginitiative/working-with-data
           - text: Make a suggestion
             href:  https://github.com/housinginitiative/working-with-data/issues/new
+  favicon: images/HIP_favicon.png
 
 format:
   html:
