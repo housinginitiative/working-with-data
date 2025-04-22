@@ -35,13 +35,11 @@ This is a common scenario that can give rise to difficulties, for example:
 
 This may be the case whether you're reading code from past-you, or from someone else. But the good news is that most of these pain points can be prevented or mitigated by following some good practices from the beginning.
 
-The intent of this guide is to present a set of good, generally applicable practices to help you write clear, legible, and adaptable code. The examples come from R, but the general principles hold regardless of programming language.
+The intent of this guide is to present a set of good, generally applicable practices to help you write clear, replicable, and accurate code. The examples come from R, but the general principles hold regardless of programming language.
 
 # 1. Good code
 
-What does this mean to create code that is "clear, legible, and adaptable"?
-
-When we perform research, we want the results to be reliable. This is of course true for any important task, but is especially important in our research: we want to present conclusions and recommendations that are based on transparent and thoughtful analysis of data. We do *not* want policy decisions to be influenced by error-laden or careless research.
+When we perform research, we want the results to be reliable. This is of course true for any important task, but is especially important in our research: we want to present conclusions and recommendations that are based on transparent and thoughtful analysis of data. We do not want policy decisions to be influenced by error-laden or careless research.
 
 *Good code* means code that leads to reliable and meaningful analyses. It should take the analysis step-by-step from the raw data source to the communication of the results, in a way that any careful reader can understand.
 
@@ -49,18 +47,17 @@ Think back to the hypothetical scenario from the top of the page, and think abou
 
 Here are some important heuristics to keep in mind throughout a project. If your code reflects these qualities, your life is likely to be much easier down the road.
 
--   Code should be **universal**: you, and anyone else with access to the data, should be able to run your code out-of-the-box without tinkering or having to complete any procedure more complex than downloading needed packages.
--   Code should be **replicable**: when you (or anyone) runs the code, the results should be the same.
--   Code should be **legible**: it should be easy to read your code.
--   Code should be **clear**: your code should not be ambiguous (either to the computer or to a human). To a human, the purpose of your code should be easily apparent.
+-   Code should be **clear**: it should be easy to read your code, and your code should not be ambiguous—either to the computer or to a human. 
+-   Code should be **replicable**: it should work regardless of who is running it on what machine, and the results should be the same.
+- Code should be **accurate**: it should work as intended—what it does should align with what it was meant to do.
 
-As you write your code, always imagine that someone may want to look at your code immediately and have the code make sense to them. Keeping clean code consistently can be an extra effort, but it will make for a better and more professional product, which will ultimately make the project an easier and more rewarding one.
+As you write your code, know that others will want to look at your code and have the code make sense to them. Keeping clean code consistently can be an extra effort, but it will make for a better and more professional product, which will ultimately make the project an easier and more rewarding one.
 
 # 2. Basics
 
 We start with the basics—clear writing. The reason is this: before anyone (including a future version of you) can begin to understand any code, they must be able to read it. Code is almost inherently difficult to read because writing for computers is generally not how humans understand natural language. But there are some basic principles that can help you write more legible code.
 
-Most of what follows is conventional: you could use a different set of conventions if you wanted. The most important principle is *to be consistent*. However, the following conventions are the official standards for writing R code for the tidyverse packages, and should be followed when writing in R. (If writing in other languages, you should pick a widely used style guide for that language and follow it.)
+Most of what follows is conventional: you could use a different set of conventions if you wanted. The most important principle is to be consistent. However, the following conventions are the official standards for writing R code for the tidyverse packages, and should be followed when writing in R. (If writing in other languages, you should pick a widely used style guide for that language and follow it.)
 
 For more, see the [tidyverse style guide](https://style.tidyverse.org/).
 
@@ -96,7 +93,7 @@ These are the most important conventions for legibility:
 `max ( y )`
 :::
 
-But parentheses for control statements (like `if`) and for bracketing statements (like `(1 + 1) / 10`) should have surrounding spaces.
+- But parentheses for control statements (like `if`) and for bracketing statements (like `(1 + 1) / 10`) should have surrounding spaces.
 
 - `TRUE` and `FALSE` are special keywords and should always be written out fully in all-caps in R, not as 'T' or 'True'.
 
@@ -118,7 +115,7 @@ Over and above the visual conventions, a great name will be:
 -   Unambiguous
 -   Short
 
-However, optimizing for all 3 qualities is difficult. The strong recommendation is to favor meaningfulness and unambiguousness, even at the cost of length. A long variable name is annoying, but a confusing variable name is useless—or downright dangerous.
+However, optimizing for all 3 qualities is difficult. The strong recommendation is to favor meaningfulness and unambiguity, even at the cost of length. A long variable name is annoying, but a confusing variable name is dangerous.
 
 ::: good
 `tract_geoid_2022`
@@ -155,14 +152,14 @@ Be aware that Windows *still* has a low character-length limit for filenames, so
 :::
 
 ::: {.callout-warning}
-Some file formats, like ESRI's shapefile format, have restrictive variable name length limits. Do not write out to these formats.
+Some file formats, like ESRI's shapefile format, have restrictive variable name length limits. [Do not write out to these formats](http://switchfromshapefile.org/).
 :::
 
 ## Commenting
 
-Commenting your code is an indispensable requirement to make it legible and understandable.
+Commenting your code is a requirement to make it understandable.
 
-Immediately when you start a new script, include a heading at the top named 'Purpose' or similar, with a description of the purpose of the script written out in a short paragraph. If the purpose changes as you go along, update this comment.
+Immediately when you start a new script, include a heading at the top named 'Purpose', with a description of the purpose of the script written out in a short paragraph. If the purpose changes as you go along, update this comment.
 
 In the body of the script, section titles are a good way to orient the reader. Each new section (e.g., "Read in data", "Process data", "Output cleaned data") should have a corresponding comment line. Within each section, major steps (like starting a new pipeline) often should have a short 1-line comment.
 
@@ -172,7 +169,7 @@ Use the cmd/ctrl-shift-R shortcut in RStudio to insert a commented section headi
 
 Occasionally, some intermediate steps may benefit from their own comment lines. For example, you might do a particularly tricky conditional `mutate` and a comment might clear up some of your reader's questions preemptively.
 
-An important case: if you're changing the number of observations in your data, or changing the number of NA values in a variable, you should insert a comment indicating how many rows were affected, because this information can be critical to any further processing steps either now or in the future. The `tidylog` package (which you should always use) will generate this log for you automatically which you can copy-paste in as a comment.
+An important case: if you're changing the number of observations in your data, or changing the number of NA values in a variable, you should insert a comment indicating how many rows were affected, because this information can be critical to any further processing steps either now or in the future. The `tidylog` package (which you should always use) will generate this log for you automatically, which you can copy-paste in as a comment.
 
 ::: {.callout-tip}
 Use the cmd/ctrl-shift-C shortcut in RStudio to toggle a line (or block) of code in and out of comment status.
@@ -184,7 +181,7 @@ Think of comments as descriptions of *why* you did what you did (and sometimes *
 
 ### Dates
 
-When using dates and times in variable names or filenames, always use the [ISO 8601](https://xkcd.com/1179/) standard (for dates, that's YYYY-MM-DD). This way, when you sort by name, the names will also be sorted chronologically. Only use dates in non-ISO 8601 formats in code when needing to write in 'regular' English, like in body text or plot labels (and in this case, write out the month names so that it's unambiguous internationally).
+When using dates and times in variable names or filenames, always use the [ISO 8601](https://xkcd.com/1179/) standard (YYYY-MM-DD for dates). This way, when you sort by name, the names will also be sorted chronologically. Only use dates in non-ISO 8601 formats in code when needing to write in 'regular' English, like in body text or plot labels (and in this case, write out the month names so that it's unambiguous internationally).
 
 ### Security
 
@@ -230,7 +227,7 @@ However, for material that is not explicitly communicative in nature, I recommen
 
 # 4. Important pitfalls and how to avoid them
 
-In this section, we move to more conceptual—but still fundamental—issues that are relevant to how you should approach any analysis. As you move through a project, keep half a brain engaged to make sure you continually understand what's going on with your data and analysis. The following are some specific things to keep track of, but the list is not exhaustive—are there any items you think should be added to the list?
+In this section, we move to more conceptual—but still fundamental—issues that are relevant to how you should approach any analysis. As you move through a project, keep your brain engaged to make sure you continually understand what's going on with your data and analysis. The following are some specific things to keep track of, but the list is not exhaustive—are there any items you think should be added to the list?
 
 ## Know your data!
 
@@ -282,7 +279,9 @@ Be careful about assuming data types based on what they look like. A GEOID colum
 
 How does your dataset encode missing data? In some datasets, missing data are specific values, like '-b' or '-1'. Sometimes missing values can vary by variable, like the lowest possible value for that column minus one. In others, it may be keywords like NULL, Null, NaN, nan, N/A, n/a, N/a, or any variation thereof. Often, a dataset will have several different ways to encode NAs.
 
-One of the first things you should do is to standardize all missing values (but *only* the missing values) to R's `NA` keyword. Once that's done, are there any rows or columns that are completely NA? (`janitor::remove_empty()`, with verbosity on, is helpful.) If so, is it safe to remove them? Inspect the `skim` output and notice any variables with large NA percentages. But just as suspicious are variables with zero NAs: were missing values for these variables coded badly (e.g., did the datasource assume that NA means FALSE?)? In some cases, it might be ambiguous whether a value like `0` is really a zero or actually represents missing or inapplicable data. In such a case you may need to address a question to the datasource.
+One of the first things you should do is to standardize all missing values (but *only* the missing values) to R's `NA` keyword. Once that's done, are there any rows or columns that are completely NA? (`janitor::remove_empty()`, with verbosity on, is helpful.) If so, is it safe to remove them? Inspect the `skim` output and notice any variables with large NA percentages. 
+
+But just as suspicious are variables with zero NAs: were missing values for these variables coded badly (e.g., did the datasource assume that NA means FALSE?)? In some cases, it might be ambiguous whether a value like `0` is really a zero or actually represents missing or inapplicable data. In such a case you may need to ask the datasource.
 
 #### Unexpected values
 
@@ -300,13 +299,13 @@ If records in the current dataset need to be joined to records in another, is th
 
 There's a common saying that 90% of data work is data cleaning and 10% is analysis. That's false. It's closer to the truth to say that 50% is understanding what the data contain in the first place, 45% is cleaning, and 5% is analysis, though the exact proportion will differ between projects.
 
-There is an order of operationws: You should start getting to know the data before you clean it, and you should be comfortable with data quality before you do any analysis. But the work will be iterative—you may find some unexpected pattern while you clean, and structuring an analysis may suggest ways to understand the data differently. Don't be afraid of revisiting prior steps with better knowledge, but at the same time, understand that decisions you make at the earliest stages are also the most difficult to change later. Keep your colleagues updated throughout so that everyone on the project is on the same page.
+There is an order of operations: You should start getting to know the data before you clean it, and you should be comfortable with data quality before you do any analysis. But the work will be iterative—you may find some unexpected pattern while you clean, and structuring an analysis may suggest ways to understand the data differently. Don't be afraid of revisiting prior steps with better knowledge, but at the same time, understand that decisions you make at the earliest stages are also the most difficult to change later. Keep your colleagues updated throughout so that everyone on the project is on the same page.
 
 ## NA handling
 
 On to a new topic. How missing data are treated in data processing steps is an important but easily-neglected issue: mistakes in this arena can introduce consequential errors, but are very easy to miss unless you're looking for them. 
 
-Once you understand the missingness patterns in your data, make sure that your code handles them properly. How R handles missing data can be unintuitive at times, so whenever you construct any logical comparison, or generate any summary, make sure you you're satisfied how your code dealt with NAs.
+Once you understand the missingness patterns in your data (see [above](code-guidelines.qmd#missing-data)), make sure that your code handles them properly. How R handles missing data can be unintuitive at times, so whenever you construct any logical comparison, or generate any summary, make sure you you're satisfied how your code dealt with NAs.
 
 Remember, NAs are not values—they are labels for `we don't know`. That's why `NA == NA` is a meaningless expression and we use `is.na()` instead.
 

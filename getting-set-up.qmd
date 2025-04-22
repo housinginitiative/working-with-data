@@ -3,7 +3,7 @@ title: "Getting set up"
 format: html
 ---
 
-The quantitative workflow at HIP depends on three external systems: R, Github, and Box. Here are some step-by-step guides to help get you set up, whether you've just joined our team or setting up a new machine.
+The quantitative workflow at HIP depends on three systems: R, Github, and Box. Here are some step-by-step guides to help get you set up, whether you've just joined our team or you're setting up a new machine.
 
 # R
 
@@ -20,7 +20,7 @@ RStudio is an integrated development environment (IDE) focused on R, which is ba
 Since RStudio is going to be a daily tool for you, here are some quality-of-life tips:
 
 - You don't want to waste your life typing out `%>%` every time. You can use the standard keyboard shortcut (`cmd/ctrl` + `shift` + `M`), or configure the shortcut to your liking (Tools > Modify keyboard shortcuts). 
-- The same goes for the assignment operator (`<-`), `option/alt` + `-` (though I prefer changing it to `cmd` + `-`).
+- The same goes for the assignment operator (`<-`), `option/alt` + `-` (you can also change this shortcut, for example to the more ergonomic `cmd` + `-`).
 - If you use the shortcut `cmd` + `return` (or `ctrl` + `enter`), RStudio will run the statement (e.g., a pipeline) where your cursor is located.
 - The `cmd/ctrl` + `option/alt` + `b` shortcut runs the script up to the point of the cursor (R scripts only).
 - See [this page](https://jimgar.github.io/posts/rstudio-keyboard-shortcuts/post.html) for a list of other very helpful shortcuts.
@@ -43,7 +43,7 @@ Here are the initial setup steps:
 You can also execute Git commands using the command line or another GUI application, but unless you have a prior preference you should use Github Desktop. RStudio also has built-in Git integration, but this option is *not* recommended due to usability issues.
 :::
 
-Once you're done setting up, head over to the [Using Github](using-github.qmd) page to read about why and how we use Github, and try the practice exercise at the end of that page.
+Once you're done setting up, head over to the [Using Github](using-github.qmd) page to read about why and how we use Github, and try the practice exercise on that page.
 
 # Box
 
