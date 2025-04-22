@@ -1,6 +1,6 @@
 # Guidelines for how to work with data at HIP
 
-![](images/HIP Logo_Horizontal.png){width="33%"}
+![]([images/HIP Logo_Horizontal.png](https://github.com/housinginitiative/working-with-data/blob/9fcc25335c5b535301952083745ae2c1c5505c70/images/HIP%20Logo_Horizontal.png)){width="33%"}
 
 Welcome! [This website](https://housinginitiative.github.io/working-with-data/) collects information and resources to help you do great quantitative work at HIP.
 
