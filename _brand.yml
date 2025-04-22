@@ -1,0 +1,26 @@
+color:
+  palette:
+    darkblue: "#1f2859ff"
+    darkgreen: "#0b9444ff"
+  primary: darkgreen
+
+logo: 
+  large: images/HIP Logo_Horizontal.png
+  medium: images/HIP Logo_Stacked.png
+  small: images/HIP_favicon.png
+
+typography:
+  fonts:
+    - family: Roboto
+      source: google
+    - family: Oswald
+      source: google
+  base: 
+    family: Roboto
+  headings: 
+    family: Oswald
+    color: darkblue
+  monospace:
+    color: darkblue
+  link:
+    color: darkgreen
