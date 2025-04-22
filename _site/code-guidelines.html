@@ -282,27 +282,25 @@ div.callout-good.callout-style-default .callout-icon::before, div.callout-good.c
 <li>Figuring out why this code was written in a particularly way</li>
 </ul>
 <p>This may be the case whether you’re reading code from past-you, or from someone else. But the good news is that most of these pain points can be prevented or mitigated by following some good practices from the beginning.</p>
-<p>The intent of this guide is to present a set of good, generally applicable practices to help you write clear, legible, and adaptable code. The examples come from R, but the general principles hold regardless of programming language.</p>
+<p>The intent of this guide is to present a set of good, generally applicable practices to help you write clear, replicable, and accurate code. The examples come from R, but the general principles hold regardless of programming language.</p>
 </section>
 <section id="good-code" class="level1">
 <h1>1. Good code</h1>
-<p>What does this mean to create code that is “clear, legible, and adaptable”?</p>
-<p>When we perform research, we want the results to be reliable. This is of course true for any important task, but is especially important in our research: we want to present conclusions and recommendations that are based on transparent and thoughtful analysis of data. We do <em>not</em> want policy decisions to be influenced by error-laden or careless research.</p>
+<p>When we perform research, we want the results to be reliable. This is of course true for any important task, but is especially important in our research: we want to present conclusions and recommendations that are based on transparent and thoughtful analysis of data. We do not want policy decisions to be influenced by error-laden or careless research.</p>
 <p><em>Good code</em> means code that leads to reliable and meaningful analyses. It should take the analysis step-by-step from the raw data source to the communication of the results, in a way that any careful reader can understand.</p>
 <p>Think back to the hypothetical scenario from the top of the page, and think about what would make your life (and your colleagues’ lives) easier or more difficult.</p>
 <p>Here are some important heuristics to keep in mind throughout a project. If your code reflects these qualities, your life is likely to be much easier down the road.</p>
 <ul>
-<li>Code should be <strong>universal</strong>: you, and anyone else with access to the data, should be able to run your code out-of-the-box without tinkering or having to complete any procedure more complex than downloading needed packages.</li>
-<li>Code should be <strong>replicable</strong>: when you (or anyone) runs the code, the results should be the same.</li>
-<li>Code should be <strong>legible</strong>: it should be easy to read your code.</li>
-<li>Code should be <strong>clear</strong>: your code should not be ambiguous (either to the computer or to a human). To a human, the purpose of your code should be easily apparent.</li>
+<li>Code should be <strong>clear</strong>: it should be easy to read your code, and your code should not be ambiguous—either to the computer or to a human.</li>
+<li>Code should be <strong>replicable</strong>: it should work regardless of who is running it on what machine, and the results should be the same.</li>
+<li>Code should be <strong>accurate</strong>: it should work as intended—what it does should align with what it was meant to do.</li>
 </ul>
-<p>As you write your code, always imagine that someone may want to look at your code immediately and have the code make sense to them. Keeping clean code consistently can be an extra effort, but it will make for a better and more professional product, which will ultimately make the project an easier and more rewarding one.</p>
+<p>As you write your code, know that others will want to look at your code and have the code make sense to them. Keeping clean code consistently can be an extra effort, but it will make for a better and more professional product, which will ultimately make the project an easier and more rewarding one.</p>
 </section>
 <section id="basics" class="level1">
 <h1>2. Basics</h1>
 <p>We start with the basics—clear writing. The reason is this: before anyone (including a future version of you) can begin to understand any code, they must be able to read it. Code is almost inherently difficult to read because writing for computers is generally not how humans understand natural language. But there are some basic principles that can help you write more legible code.</p>
-<p>Most of what follows is conventional: you could use a different set of conventions if you wanted. The most important principle is <em>to be consistent</em>. However, the following conventions are the official standards for writing R code for the tidyverse packages, and should be followed when writing in R. (If writing in other languages, you should pick a widely used style guide for that language and follow it.)</p>
+<p>Most of what follows is conventional: you could use a different set of conventions if you wanted. The most important principle is to be consistent. However, the following conventions are the official standards for writing R code for the tidyverse packages, and should be followed when writing in R. (If writing in other languages, you should pick a widely used style guide for that language and follow it.)</p>
 <p>For more, see the <a href="https://style.tidyverse.org/">tidyverse style guide</a>.</p>
 <section id="usage-and-style" class="level2">
 <h2 class="anchored" data-anchor-id="usage-and-style">Usage and style</h2>
@@ -380,8 +378,8 @@ Avoid
 <p><code>max ( y )</code></p>
 </div>
 </div>
-<p>But parentheses for control statements (like <code>if</code>) and for bracketing statements (like <code>(1 + 1) / 10</code>) should have surrounding spaces.</p>
 <ul>
+<li><p>But parentheses for control statements (like <code>if</code>) and for bracketing statements (like <code>(1 + 1) / 10</code>) should have surrounding spaces.</p></li>
 <li><p><code>TRUE</code> and <code>FALSE</code> are special keywords and should always be written out fully in all-caps in R, not as ‘T’ or ‘True’.</p></li>
 <li><p>If you load a package with <code>library()</code> (which should always come at the beginning of a script), you should not specify the package in the code (e.g., <code>dplyr::select</code>). Only use the <code>::</code> notation if you are using a one-off function without loading the package, or if you specifically need it to avoid function name conflicts among packages you’ve loaded.</p></li>
 </ul>
@@ -401,7 +399,7 @@ Avoid
 <li>Unambiguous</li>
 <li>Short</li>
 </ul>
-<p>However, optimizing for all 3 qualities is difficult. The strong recommendation is to favor meaningfulness and unambiguousness, even at the cost of length. A long variable name is annoying, but a confusing variable name is useless—or downright dangerous.</p>
+<p>However, optimizing for all 3 qualities is difficult. The strong recommendation is to favor meaningfulness and unambiguity, even at the cost of length. A long variable name is annoying, but a confusing variable name is dangerous.</p>
 <div class="callout callout-style-default callout-good callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -495,14 +493,14 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Some file formats, like ESRI’s shapefile format, have restrictive variable name length limits. Do not write out to these formats.</p>
+<p>Some file formats, like ESRI’s shapefile format, have restrictive variable name length limits. <a href="http://switchfromshapefile.org/">Do not write out to these formats</a>.</p>
 </div>
 </div>
 </section>
 <section id="commenting" class="level2">
 <h2 class="anchored" data-anchor-id="commenting">Commenting</h2>
-<p>Commenting your code is an indispensable requirement to make it legible and understandable.</p>
-<p>Immediately when you start a new script, include a heading at the top named ‘Purpose’ or similar, with a description of the purpose of the script written out in a short paragraph. If the purpose changes as you go along, update this comment.</p>
+<p>Commenting your code is a requirement to make it understandable.</p>
+<p>Immediately when you start a new script, include a heading at the top named ‘Purpose’, with a description of the purpose of the script written out in a short paragraph. If the purpose changes as you go along, update this comment.</p>
 <p>In the body of the script, section titles are a good way to orient the reader. Each new section (e.g., “Read in data”, “Process data”, “Output cleaned data”) should have a corresponding comment line. Within each section, major steps (like starting a new pipeline) often should have a short 1-line comment.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -518,7 +516,7 @@ Tip
 </div>
 </div>
 <p>Occasionally, some intermediate steps may benefit from their own comment lines. For example, you might do a particularly tricky conditional <code>mutate</code> and a comment might clear up some of your reader’s questions preemptively.</p>
-<p>An important case: if you’re changing the number of observations in your data, or changing the number of NA values in a variable, you should insert a comment indicating how many rows were affected, because this information can be critical to any further processing steps either now or in the future. The <code>tidylog</code> package (which you should always use) will generate this log for you automatically which you can copy-paste in as a comment.</p>
+<p>An important case: if you’re changing the number of observations in your data, or changing the number of NA values in a variable, you should insert a comment indicating how many rows were affected, because this information can be critical to any further processing steps either now or in the future. The <code>tidylog</code> package (which you should always use) will generate this log for you automatically, which you can copy-paste in as a comment.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -538,7 +536,7 @@ Tip
 <h2 class="anchored" data-anchor-id="miscellaneous">Miscellaneous</h2>
 <section id="dates" class="level3">
 <h3 class="anchored" data-anchor-id="dates">Dates</h3>
-<p>When using dates and times in variable names or filenames, always use the <a href="https://xkcd.com/1179/">ISO 8601</a> standard (for dates, that’s YYYY-MM-DD). This way, when you sort by name, the names will also be sorted chronologically. Only use dates in non-ISO 8601 formats in code when needing to write in ‘regular’ English, like in body text or plot labels (and in this case, write out the month names so that it’s unambiguous internationally).</p>
+<p>When using dates and times in variable names or filenames, always use the <a href="https://xkcd.com/1179/">ISO 8601</a> standard (YYYY-MM-DD for dates). This way, when you sort by name, the names will also be sorted chronologically. Only use dates in non-ISO 8601 formats in code when needing to write in ‘regular’ English, like in body text or plot labels (and in this case, write out the month names so that it’s unambiguous internationally).</p>
 </section>
 <section id="security" class="level3">
 <h3 class="anchored" data-anchor-id="security">Security</h3>
@@ -586,7 +584,7 @@ Tip
 </section>
 <section id="important-pitfalls-and-how-to-avoid-them" class="level1">
 <h1>4. Important pitfalls and how to avoid them</h1>
-<p>In this section, we move to more conceptual—but still fundamental—issues that are relevant to how you should approach any analysis. As you move through a project, keep half a brain engaged to make sure you continually understand what’s going on with your data and analysis. The following are some specific things to keep track of, but the list is not exhaustive—are there any items you think should be added to the list?</p>
+<p>In this section, we move to more conceptual—but still fundamental—issues that are relevant to how you should approach any analysis. As you move through a project, keep your brain engaged to make sure you continually understand what’s going on with your data and analysis. The following are some specific things to keep track of, but the list is not exhaustive—are there any items you think should be added to the list?</p>
 <section id="know-your-data" class="level2">
 <h2 class="anchored" data-anchor-id="know-your-data">Know your data!</h2>
 <p>The very first step is to know what you’re working with: that should be your first goal when you start a project. Make sure you understand the following:</p>
@@ -642,7 +640,8 @@ Warning
 <section id="missing-data" class="level4">
 <h4 class="anchored" data-anchor-id="missing-data">Missing data</h4>
 <p>How does your dataset encode missing data? In some datasets, missing data are specific values, like ‘-b’ or ‘-1’. Sometimes missing values can vary by variable, like the lowest possible value for that column minus one. In others, it may be keywords like NULL, Null, NaN, nan, N/A, n/a, N/a, or any variation thereof. Often, a dataset will have several different ways to encode NAs.</p>
-<p>One of the first things you should do is to standardize all missing values (but <em>only</em> the missing values) to R’s <code>NA</code> keyword. Once that’s done, are there any rows or columns that are completely NA? (<code>janitor::remove_empty()</code>, with verbosity on, is helpful.) If so, is it safe to remove them? Inspect the <code>skim</code> output and notice any variables with large NA percentages. But just as suspicious are variables with zero NAs: were missing values for these variables coded badly (e.g., did the datasource assume that NA means FALSE?)? In some cases, it might be ambiguous whether a value like <code>0</code> is really a zero or actually represents missing or inapplicable data. In such a case you may need to address a question to the datasource.</p>
+<p>One of the first things you should do is to standardize all missing values (but <em>only</em> the missing values) to R’s <code>NA</code> keyword. Once that’s done, are there any rows or columns that are completely NA? (<code>janitor::remove_empty()</code>, with verbosity on, is helpful.) If so, is it safe to remove them? Inspect the <code>skim</code> output and notice any variables with large NA percentages.</p>
+<p>But just as suspicious are variables with zero NAs: were missing values for these variables coded badly (e.g., did the datasource assume that NA means FALSE?)? In some cases, it might be ambiguous whether a value like <code>0</code> is really a zero or actually represents missing or inapplicable data. In such a case you may need to ask the datasource.</p>
 </section>
 <section id="unexpected-values" class="level4">
 <h4 class="anchored" data-anchor-id="unexpected-values">Unexpected values</h4>
@@ -660,13 +659,13 @@ Warning
 <section id="the-data-cycle" class="level3">
 <h3 class="anchored" data-anchor-id="the-data-cycle">The data cycle</h3>
 <p>There’s a common saying that 90% of data work is data cleaning and 10% is analysis. That’s false. It’s closer to the truth to say that 50% is understanding what the data contain in the first place, 45% is cleaning, and 5% is analysis, though the exact proportion will differ between projects.</p>
-<p>There is an order of operationws: You should start getting to know the data before you clean it, and you should be comfortable with data quality before you do any analysis. But the work will be iterative—you may find some unexpected pattern while you clean, and structuring an analysis may suggest ways to understand the data differently. Don’t be afraid of revisiting prior steps with better knowledge, but at the same time, understand that decisions you make at the earliest stages are also the most difficult to change later. Keep your colleagues updated throughout so that everyone on the project is on the same page.</p>
+<p>There is an order of operations: You should start getting to know the data before you clean it, and you should be comfortable with data quality before you do any analysis. But the work will be iterative—you may find some unexpected pattern while you clean, and structuring an analysis may suggest ways to understand the data differently. Don’t be afraid of revisiting prior steps with better knowledge, but at the same time, understand that decisions you make at the earliest stages are also the most difficult to change later. Keep your colleagues updated throughout so that everyone on the project is on the same page.</p>
 </section>
 </section>
 <section id="na-handling" class="level2">
 <h2 class="anchored" data-anchor-id="na-handling">NA handling</h2>
 <p>On to a new topic. How missing data are treated in data processing steps is an important but easily-neglected issue: mistakes in this arena can introduce consequential errors, but are very easy to miss unless you’re looking for them.</p>
-<p>Once you understand the missingness patterns in your data, make sure that your code handles them properly. How R handles missing data can be unintuitive at times, so whenever you construct any logical comparison, or generate any summary, make sure you you’re satisfied how your code dealt with NAs.</p>
+<p>Once you understand the missingness patterns in your data (see <a href="./code-guidelines.html#missing-data">above</a>), make sure that your code handles them properly. How R handles missing data can be unintuitive at times, so whenever you construct any logical comparison, or generate any summary, make sure you you’re satisfied how your code dealt with NAs.</p>
 <p>Remember, NAs are not values—they are labels for <code>we don't know</code>. That’s why <code>NA == NA</code> is a meaningless expression and we use <code>is.na()</code> instead.</p>
 <p>The following are common examples of how NA errors can creep in when you don’t watch out for them:</p>
 <ul>
