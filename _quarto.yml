@@ -11,6 +11,13 @@ website:
       - using-github.qmd
       - code-guidelines.qmd
       - resources.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Website repository
+            href:  https://github.com/housinginitiative/working-with-data
+          - text: Make a suggestion
+            href:  https://github.com/housinginitiative/working-with-data/issues/new
 
 format:
   html:
