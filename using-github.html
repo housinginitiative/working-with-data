@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e9a17629c955a077f3c5c3f040a2fe8b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-b0849399689e0288b4e2b92e3123c562.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -436,7 +436,7 @@ Try it yourself
 <section id="pull-in-changes-from-remote" class="level2">
 <h2 class="anchored" data-anchor-id="pull-in-changes-from-remote">Pull in changes from <code>remote</code></h2>
 <p>Before you start on a day’s work, it’s a good idea to make sure your local repo is in sync with the remote repo on Github. If you are the only person working on a branch (which should usually be the case), there should not be changes to your branch on <code>remote</code>, but if you are accessing the repo from another computer or changes have accumulated on <code>main</code>, you will need to update the state of your local repo.</p>
-<p>You can do this easily from Github Desktop. First, make sure you are in the branch you want. Then, click the ‘Fetch origin’ button at the top of the Github Desktop window to see if the <code>remote</code> repo has changed (yes, you need to ask directly whether changes have been made to <code>remote</code>; they will not be automatically fetched). If the branch has changed on <code>remote</code>, Github Desktop will show you the ‘Pull origin’ button: selecting this button will update your local repo directory with the changes. (For our purposes, <code>origin</code> is just another name for <code>remote</code>.)</p>
+<p>You can do this easily from Github Desktop. First, make sure you are in the branch you want. Then, click the ‘Fetch origin’ button at the top of the Github Desktop window to see if the <code>remote</code> repo has changed (Github doesn’t always automatically fetch from <code>remote</code>). If the branch has changed on <code>remote</code>, Github Desktop will show you the ‘Pull origin’ button: selecting this button will update your local repo directory with the changes. (For our purposes, <code>origin</code> is just another name for <code>remote</code>.)</p>
 <p>Keep in mind that ‘Pull origin’ only updates the branch you are in currently. Changes <em>between</em> branches will not be synced to each other unless you <em>merge</em> in the changes. Usually, branches will be short-lived and changes will not accumulate too much on other branches. But if there have been changes in <code>main</code> while you’re working on your branch, be sure to merge in <code>main</code> to your own branch (instructions <a href="https://docs.github.com/en/desktop/working-with-your-remote-repository-on-github-or-github-enterprise/syncing-your-branch-in-github-desktop">here</a>).</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
